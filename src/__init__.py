@@ -15,11 +15,11 @@ def create_app(test_config=None):
         #db_session.commit()
         return 'Hello World!'
     
-    from src.apps.auth import auth
+    from src.controllers.auth import auth
     app.register_blueprint(auth.bp)
 
 
-    from src.apps.account import account
+    from src.controllers.account import account
     app.register_blueprint(account.bp)
 
     return app
