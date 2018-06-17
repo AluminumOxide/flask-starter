@@ -1,28 +1,32 @@
-from sqlalchemy import Column, Integer, String
-from src.database import Base
+from src import db
 
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
-    email = Column(String(120), unique=True)
-#    password_salt = Column(String())
-#    password_encrypted = Column(String())
-#    lang = Column(String())
-#    created = Column()
-#    updated = Column()
-#    deleted = Column(Boolean)
-#    recovery_field = Column()
-#    recovery_code = Column()
-#    verified_email = Column()
-#    verification_code = Column()
-#    login_code = Column()
-#    login_timestamp = Column()
+class User(db.Model):
+
+    print("USER LOADED")
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    email = db.Column(db.String(120), unique=True)
+    password_salt = db.Column(db.String(10))
+    password_encrypted = db.Column(db.String(120))
+    lang = db.Column(db.String(3))
+##    created = db.Column()
+##    updated = db.Column()
+##    deleted = db.Column(Boolean)
+##    recovery_field = db.Column()
+##    recovery_code = db.Column()
+##    verified_email = db.Column()
+##    verification_code = db.Column()
+##    login_code = db.Column()
+##    login_timestamp = db.Column()
     
 
-    def __init__(self, name=None, email=None):
+    def __init__(self, name=None, email=None, password=None, lang=None):
         self.name = name
         self.email = email
+        self.password_salt = ""
+        self.password_encrypted = ""
+        self.lang = lang
 
     def __repr__(self):
         return '<User %r>' % (self.id)

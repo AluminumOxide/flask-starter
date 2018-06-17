@@ -1,12 +1,18 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
 
-engine = create_engine('sqlite:////tmp/test.db', convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
-Base = declarative_base()
-Base.query = db_session.query_property()
+class Database():
 
-def init_db():
-    import src.models
-    Base.metadata.create_all(bind=engine)
+    def __init__(self, app):
+
+        # Set test DB URI
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+
+        # Initialize SQLiteDB
+        self.db = SQLAlchemy(app)
+
+        # Set up operation to clear test data and reset tables
+        def _clear():
+            self.db.drop_all()
+            self.db.create_all()
+        self.db.clear = _clear
+
