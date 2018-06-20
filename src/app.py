@@ -1,10 +1,13 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, Flask
 from src.webexception import WebException
-
-from src import app
-from src import db
+from src.database import Database
 
 def create_app(test_config=None):
+
+    app = Flask('FlaskStarter')
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+    db = Database(app)
 
     from src.models.user import User
     db.clear()
@@ -25,4 +28,4 @@ def create_app(test_config=None):
     from src.controllers import account
     app.register_blueprint(account.bp)
 
-create_app()
+    return app

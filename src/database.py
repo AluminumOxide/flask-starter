@@ -1,18 +1,38 @@
 from flask_sqlalchemy import SQLAlchemy
 
+def get_sqlalchemy():
+    return Database.db.db
+
+def get_db():
+    return Database.db
+
 class Database():
 
-    def __init__(self, app):
+    # Singletons, yay!
+    class __Database:
 
-        # Set test DB URI
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+        def __init__(self, app):
+            self.db = SQLAlchemy(app)
 
-        # Initialize SQLiteDB
-        self.db = SQLAlchemy(app)
-
-        # Set up operation to clear test data and reset tables
-        def _clear():
+        def clear(self):
             self.db.drop_all()
             self.db.create_all()
-        self.db.clear = _clear
+    
+        def add(self, value):
+            self.db.session.add(value)
+    
+        def delete(self, value):
+            self.db.session.delete(value)
+    
+        def commit(self):
+            self.db.session.commit()
+    
+    db = None
+    def __init__(self, app):
+        if not Database.db:
+            Database.db = Database.__Database(app)
+
+    def __getattr__(self, name):
+        return getattr(self.db, name)
+
 

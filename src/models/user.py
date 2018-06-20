@@ -1,34 +1,36 @@
-from src import db
+from src.database import get_sqlalchemy, get_db
+from sqlalchemy.orm import validates
 from passlib.context import CryptContext
 import datetime
-from sqlalchemy.orm import validates
 import re
 
+db = get_db()
+sqla = get_sqlalchemy()
 pwd_context = CryptContext(
         schemes=["sha256_crypt","md5_crypt"]
 )
 
-class User(db.Model):
+class User(sqla.Model):
 
     __name_len = 50
     __email_len = 120
     __password_len = 120
     __lang_len = 3
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(__name_len), unique=True)
-    email = db.Column(db.String(__email_len), unique=True)
-    password = db.Column(db.String(__password_len))
-    lang = db.Column(db.String(__lang_len))
-    created = db.Column(db.DateTime, default=datetime.datetime.now())
-    updated = db.Column(db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
-    deleted = db.Column(db.Boolean, default=False)
-    recovery_field = db.Column(db.String(50))
-    recovery_code = db.Column(db.String(50))
-    verified_email = db.Column(db.Boolean, default=False)
-    verification_code = db.Column(db.String(50))
-    login_code = db.Column(db.String(50))
-    login_timestamp = db.Column(db.DateTime)
+    id = sqla.Column(sqla.Integer, primary_key=True)
+    name = sqla.Column(sqla.String(__name_len), unique=True)
+    email = sqla.Column(sqla.String(__email_len), unique=True)
+    password = sqla.Column(sqla.String(__password_len))
+    lang = sqla.Column(sqla.String(__lang_len))
+    created = sqla.Column(sqla.DateTime, default=datetime.datetime.now())
+    updated = sqla.Column(sqla.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
+    deleted = sqla.Column(sqla.Boolean, default=False)
+    recovery_field = sqla.Column(sqla.String(50))
+    recovery_code = sqla.Column(sqla.String(50))
+    verified_email = sqla.Column(sqla.Boolean, default=False)
+    verification_code = sqla.Column(sqla.String(50))
+    login_code = sqla.Column(sqla.String(50))
+    login_timestamp = sqla.Column(sqla.DateTime)
 
     @validates('name')
     def validate_name(self, key, name):
@@ -70,6 +72,54 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.id)
+
+    def save(self):
+        db.add(self)
+        db.commit()
+
+    def check(self, field, value):
+        if field == "name":
+            try:
+                return self.validate_name(field, value) == value
+            except:
+                return False
+        elif field == "email":
+            try:
+                return self.validate_email(field, value) == value
+            except:
+                return False
+        elif field == "password":
+            try:
+                return self.validate_password(field, value) == value
+            except:
+                return False
+        elif field == "lang":
+            try:
+                return self.validate_lang(field, value) == value
+            except:
+                return False
+        return True # TODO: Better validation!
+
+    def update(self, values):
+        for key,val in values.items():
+            if key == "name":
+                self.name = val
+            elif key == "email":
+                self.email = val
+                self.verified_email = False
+            elif key == "lang":
+                self.lang = val
+            elif key == "password":
+                self.password = self.encrypt_password(val)
+        self.save()
+
+    def delete(self):
+        self.deleted = True
+        self.save()
+
+    def purge(self):
+        db.delete(self)
+        db.commit()
 
     def encrypt_password(self, password):
         return pwd_context.encrypt(password)
