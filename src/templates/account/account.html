@@ -1,9 +1,66 @@
 {% extends 'base.html' %}
 
 {% block header %}
-Account Management
+<h1>Account Management</h1>
 {% endblock %}
 
 {% block content %}
-Your account info here!
+
+{% if not user %}
+
+User account is not found.
+
+{% elif user.deleted == True %}
+
+User account is deleted. Please <a href="{{ url_for('account.recover_deleted') }}">recover your account</a>.
+
+{% else  %}
+
+{% if error %}
+<span>Please fix the error and resubmit</span>
+{% endif %}
+
+<form method="post">
+
+	<label for="name">Name</label>
+	<input name="name" type="text" value="{{ error.context.name if error.context else user.name }}"></input>
+	{% if error and 'name' in error['fields'] %}
+	<span>Invalid name</span>
+	{% endif %}
+
+	<label for="email">Email</label>
+	<input name="email" type="email" value="{{ error.context.email if error.context else user.email }}"></input>
+	{% if error and 'email' in error['fields'] %}
+	<span>Invalid email</span>
+	{% endif %}
+
+	<label for="password">Password</label>
+	<input name="password" type="password"></input>
+	{% if error and 'password' in error['fields'] %}
+	<span>Invalid password</span>
+	{% endif %}
+
+	<label for="lang">Default Language</label>
+	<input name="lang" type="text" value="{{ error.context.lang if error.context else user.lang }}"></input>
+	{% if error and 'lang' in error['fields'] %}
+	<span>Unsupported language</span>
+	{% endif %}
+
+	<input type="submit" value="Update Account"/>
+</form>
+
+<h2>Delete Account</h2>
+<form action="{{ url_for('account.delete_account', user_id=user.id) }}" method="post">
+	<input type="checkbox" required> I understand that I will need to recover my account to log in again. I understand that this will not delete all my account data.
+	<input type="submit" value="Delete Account"/>
+</form>
+
+<h2>Purge Account</h2>
+<form action="{{ url_for('account.purge_account', user_id=user.id) }}" method="post">
+	<input type="checkbox" required> I understand that this will permanently delete my account and all of its data. I understand that another person may sign up with my old account name.
+	<input type="submit" value="Purge Account"/>
+</form>
+
+{% endif %}
+
 {% endblock %}

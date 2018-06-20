@@ -1,15 +1,41 @@
 {% extends 'base.html' %}
 
 {% block header %}
-Create Account
+<h1>Create Account</h1>
 {% endblock %}
 
 {% block content %}
+
+{% if error %}
+<span>Please fix the error and resubmit</span>
+{% endif %}
+
 <form method="post">
-	<label for="name">Name</label><input name="name" type="text" required></input>
-	<label for="email">Email</label><input name="email" type="email" required></input>
-	<label for="password">Password</label><input name="password" type="password" required></input>
-	<label for="lang">Default Language</label><input name="lang" type="text" required></input>
+
+	<label for="name">Name</label>
+	<input name="name" type="text" value="{{ error.context.name if error.context }}" required></input>
+	{% if error and 'name' in error['fields'] %}
+	<span>Invalid name</span>
+	{% endif %}
+
+	<label for="email">Email</label>
+	<input name="email" type="email" value="{{ error.context.email if error.context }}" required></input>
+	{% if error and 'email' in error['fields'] %}
+	<span>Invalid email</span>
+	{% endif %}
+
+	<label for="password">Password</label>
+	<input name="password" type="password" value="{{ error.context.password if error.context }}" required></input>
+	{% if error and 'password' in error['fields'] %}
+	<span>Invalid password</span>
+	{% endif %}
+
+	<label for="lang">Default Language</label>
+	<input name="lang" type="text" value="{{ error.context.lang if error.context }}" required></input>
+	{% if error and 'lang' in error['fields'] %}
+	<span>Unsupported language</span>
+	{% endif %}
+
 	<input type="submit" value="Create Account"/>
 </form>
 {% endblock %}
