@@ -1,16 +1,18 @@
 from flask import render_template, jsonify, Flask
 from src.webexception import WebException
 from src.database import Database
+from src.config import Config
 
-def create_app(test_config=None):
+def create_app(env):
 
     app = Flask('FlaskStarter')
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-    db = Database(app)
+    if env == "test":
+        app.config.update(Config[env])
+    else:
+        app.config.update(Config["dev"])
 
-    from src.models.user import User
-    db.clear()
+    db = Database(app)
 
     @app.route('/')
     def display_index():
