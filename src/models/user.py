@@ -46,6 +46,7 @@ class User(sqla.Model):
         u = self.query.filter_by(email=email).first()
         assert u is None
         assert '@' in email
+        assert '.' in email
         assert len(email) <= self.__email_len
         return email
 
