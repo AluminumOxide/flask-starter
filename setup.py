@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
         name='src',
-        version='1.1.2111432',
+        version='2',
         packages=find_packages(),
         include_package_data=True,
         zip_safe=False,

@@ -12,16 +12,20 @@ pwd_context = CryptContext(
 
 class User(sqla.Model):
 
-    __name_len = 50
-    __email_len = 120
-    __password_len = 120
-    __lang_len = 3
+    __name_len_max = 50
+    __name_len_min = 1
+    __email_len_max = 120
+    __email_len_min = 5
+    __password_len_max = 120
+    __password_len_min = 6
+    __lang_len_max = 3
+    __lang_len_min = 1
 
     id = sqla.Column(sqla.Integer, primary_key=True)
-    name = sqla.Column(sqla.String(__name_len), unique=True)
-    email = sqla.Column(sqla.String(__email_len), unique=True)
-    password = sqla.Column(sqla.String(__password_len))
-    lang = sqla.Column(sqla.String(__lang_len))
+    name = sqla.Column(sqla.String(__name_len_max), unique=True)
+    email = sqla.Column(sqla.String(__email_len_max), unique=True)
+    password = sqla.Column(sqla.String(__password_len_max))
+    lang = sqla.Column(sqla.String(__lang_len_max))
     created = sqla.Column(sqla.DateTime, default=datetime.datetime.now())
     updated = sqla.Column(sqla.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now())
     deleted = sqla.Column(sqla.Boolean, default=False)
@@ -34,31 +38,34 @@ class User(sqla.Model):
 
     @validates('name')
     def validate_name(self, key, name):
+        assert len(name) >= self.__name_len_min, "Name length must be at least %d" % self.__name_len_min
+        assert len(name) <= self.__name_len_max, "Name length must be at most %d" % self.__name_len_max
+        assert re.match('^[^\W_]+$', name), "Name contains non-alphanumeric characters"
         u = self.query.filter_by(name=name).first()
-        assert u is None
-        assert re.match('^[^\W_]+$', name)
-        assert len(name) >= 1
-        assert len(name) <= self.__name_len
+        assert u is None, "Name is not unique"
         return name
 
     @validates('email')
     def validate_email(self, key, email):
+        assert len(email) >= self.__email_len_min, "Email length must be at least %d" % self.__email_len_min
+        assert len(email) <= self.__email_len_max, "Email length must be at most %d" % self.__email_len_max
+        assert '@' in email, "Email does not contain @"
+        assert '.' in email, "Email does not contain ."
         u = self.query.filter_by(email=email).first()
-        assert u is None
-        assert '@' in email
-        assert '.' in email
-        assert len(email) <= self.__email_len
+        assert u is None, "Email is not unique"
         return email
 
     @validates('password')
     def validate_password(self, key, password):
-        assert len(password) <= self.__password_len
+        assert len(password) >= self.__password_len_min, "Password length must be at least %d" % self.__password_len_min
+        assert len(password) <= self.__password_len_max, "Password length must be at most %d" % self.__password_len_max
         return password
 
     @validates('lang')
     def validate_lang(self, key, lang):
         #TODO: Check i18n
-        assert len(lang) <= self.__lang_len
+        assert len(lang) >= self.__lang_len_min, "Language length must be at least %d" % self.__lang_len_min
+        assert len(lang) <= self.__lang_len_max, "Language length must be at most %d" % self.__lang_len_max
         return lang
 
     def __init__(self, name=None, email=None, password=None, lang=None):
@@ -82,24 +89,32 @@ class User(sqla.Model):
         if field == "name":
             try:
                 return self.validate_name(field, value) == value
+            except AssertionError as e:
+                return str(e)
             except:
                 return False
         elif field == "email":
             try:
                 return self.validate_email(field, value) == value
+            except AssertionError as e:
+                return str(e)
             except:
                 return False
         elif field == "password":
             try:
                 return self.validate_password(field, value) == value
+            except AssertionError as e:
+                return str(e)
             except:
                 return False
         elif field == "lang":
             try:
                 return self.validate_lang(field, value) == value
+            except AssertionError as e:
+                return str(e)
             except:
                 return False
-        return True # TODO: Better validation!
+        return True
 
     def update(self, values):
         for key,val in values.items():

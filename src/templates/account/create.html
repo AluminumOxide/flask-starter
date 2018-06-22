@@ -15,25 +15,41 @@
 	<label for="name">Name</label>
 	<input name="name" type="text" value="{{ error.context.name if error.context }}" required></input>
 	{% if error and 'name' in error['fields'] %}
+	{% if error['fields']['name'] == False %}
 	<span>Invalid name</span>
+	{% else %}
+	<span>{{ error['fields']['name']  }}</span>
+	{% endif %}
 	{% endif %}
 
 	<label for="email">Email</label>
 	<input name="email" type="email" value="{{ error.context.email if error.context }}" required></input>
 	{% if error and 'email' in error['fields'] %}
+	{% if error['fields']['email'] == False %}
 	<span>Invalid email</span>
+	{% else %}
+	<span>{{ error['fields']['email']  }}</span>
+	{% endif %}
 	{% endif %}
 
 	<label for="password">Password</label>
 	<input name="password" type="password" value="{{ error.context.password if error.context }}" required></input>
 	{% if error and 'password' in error['fields'] %}
+	{% if error['fields']['password'] == False %}
 	<span>Invalid password</span>
+	{% else %}
+	<span>{{ error['fields']['password']  }}</span>
+	{% endif %}
 	{% endif %}
 
 	<label for="lang">Default Language</label>
 	<input name="lang" type="text" value="{{ error.context.lang if error.context }}" required></input>
 	{% if error and 'lang' in error['fields'] %}
+	{% if error['fields']['lang'] == False %}
 	<span>Unsupported language</span>
+	{% else %}
+	<span>{{ error['fields']['lang']  }}</span>
+	{% endif %}
 	{% endif %}
 
 	<input type="submit" value="Create Account"/>

@@ -1,8 +1,5 @@
 from src.models.user import User
-#from src.database import get_db
 from src.webexception import WebException
-
-#db = get_db()
 
 class Account:
 
@@ -57,11 +54,13 @@ class Account:
 
     def check_errors(self, values):
         """Checks multiple values and constructs an exception if necessary"""
-        error = { 'fields':[], 'context':values } #TODO: store error messages w/ fields
+        error = { 'fields':{}, 'context':values } #TODO: store error messages w/ fields
         for field in values:
-            if not self.check(field, values[field]):
-                error['fields'].append(field)
-        if len(error['fields']) == 0:
+            c = self.check(field, values[field])
+            if not c == True:
+                error['fields'][field] = c
+                #error['fields'].append(field)
+        if not error['fields']:
             return None
         return WebException('Invalid value(s)', None, error)
 
