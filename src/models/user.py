@@ -2,6 +2,7 @@ from src.database import get_sqlalchemy, get_db
 from sqlalchemy.orm import validates
 from passlib.context import CryptContext
 import datetime
+import random, string
 import re
 
 db = get_db()
@@ -20,6 +21,7 @@ class User(sqla.Model):
     __password_len_min = 6
     __lang_len_max = 3
     __lang_len_min = 1
+    __vericode_len = 50
 
     id = sqla.Column(sqla.Integer, primary_key=True)
     name = sqla.Column(sqla.String(__name_len_max), unique=True)
@@ -32,7 +34,7 @@ class User(sqla.Model):
     recovery_field = sqla.Column(sqla.String(50))
     recovery_code = sqla.Column(sqla.String(50))
     verified_email = sqla.Column(sqla.Boolean, default=False)
-    verification_code = sqla.Column(sqla.String(50))
+    verification_code = sqla.Column(sqla.String(__vericode_len))
     login_code = sqla.Column(sqla.String(50))
     login_timestamp = sqla.Column(sqla.DateTime)
 
@@ -73,6 +75,9 @@ class User(sqla.Model):
             self.name = name
         if email:
             self.email = email
+            self.verified_email = False
+            self.verification_code = ''.join(random.choices(string.ascii_uppercase, k=50))
+            print("SEND EMAIL FOR USERID %s WITH VERIFICATION %s" % (self.id, self.verification_code)) #TODO!
         if password:
             self.password = self.encrypt_password(password)
         if lang:
@@ -143,3 +148,11 @@ class User(sqla.Model):
     def check_password(self, password):
         return pwd_context.verify(password, self.password)
 
+    def verify_email(self, code):
+        if code == self.verification_code:
+            self.verified_email = True
+            self.verification_code = ""
+            self.save()
+            return True
+        else:
+            return False

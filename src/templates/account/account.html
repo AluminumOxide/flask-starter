@@ -6,16 +6,6 @@
 
 {% block content %}
 
-{% if not user %}
-
-User account is not found.
-
-{% elif user.deleted == True %}
-
-User account is deleted. Please <a href="{{ url_for('account.recover_deleted') }}">recover your account</a>.
-
-{% else  %}
-
 {% if error %}
 <span>Please fix the error and resubmit</span>
 {% endif %}
@@ -60,7 +50,5 @@ User account is deleted. Please <a href="{{ url_for('account.recover_deleted') }
 	<input type="checkbox" required> I understand that this will permanently delete my account and all of its data. I understand that another person may sign up with my old account name.
 	<input type="submit" value="Purge Account"/>
 </form>
-
-{% endif %}
 
 {% endblock %}

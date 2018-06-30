@@ -36,7 +36,7 @@ def purge_account(user_id):
         return purge_account_post(user_id)
 
 @bp.route('/<int:user_id>/verify/email', methods=['GET','POST'])
-def verify_email():
+def verify_email(user_id):
     """Endpoint to verify email address"""
     if request.method == 'GET':
         return verify_email_get(user_id)
@@ -91,7 +91,15 @@ def check_language():
 
 def account_get(user_id, error=None):
     """Displays account information"""
-    return render_template('account/account.html', user=User.query.get(user_id), error=error)
+    u = User.query.get(user_id)
+    if not u:
+        raise WebException('User does not exist')
+    elif u.deleted:
+        return recover_deleted_get()
+    elif u.verified_email:
+        return render_template('account/account.html', user=User.query.get(user_id), error=error)
+    else:
+        return verify_email_get(user_id)
 
 def account_post(user_id):
     """Updates an account"""
@@ -148,17 +156,23 @@ def check_language_post():
     """Checks if a default language is supported"""
     return jsonify(Account().check("lang", request.form.get('lang')))
 
-
-
-
-
-def verify_email_get(user_id):
+def verify_email_get(user_id, error=None):
     """Displays email verification form"""
-    return render_template('account/verify_email.html')
+    return render_template('account/verify_email.html', user_id=user_id)
 
 def verify_email_post(user_id):
     """Verifies an email"""
-    return Account().verify("email","")
+    resend = request.form.get('resend')
+    if resend == "True":
+        u = User.query.get(user_id)
+        print("SEND EMAIL TO %s VERIFICATION CODE %s" % (u.id, u.verification_code))
+    if Account().verify_email(user_id, request.form.get('code')):
+        return account_get(user_id)
+    return verify_email_get(user_id, 'Invalid email verification code')
+
+
+
+
 
 def recover_password_get():
     """Displays password recovery form"""

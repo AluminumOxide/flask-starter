@@ -1,9 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
-Verify Account Email
+<h1>Verify Account Email</h1>
 {% endblock %}
 
 {% block content %}
-Form here!
+
+Please verify your email to continue.
+
+<form method="post" action="{{ url_for('account.verify_email', user_id=user_id) }}">
+	<label for="code">Validation Code</label>
+	<input name="code" type="text"></input>
+	<input type="submit" value="Validate Email"/>
+</form>
+
+Need a resend?
+
+<form method="post" action="{{ url_for('account.verify_email', user_id=user_id) }}">
+	<input type="hidden" name="resend" value="True"/>
+	<input type="submit" value="Resend Email Validation Code"/>
+</form>
+
+
 {% endblock %}

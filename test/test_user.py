@@ -60,6 +60,8 @@ def test_init():
     assert u.password is not 'password'
     assert u.check_password('password')
     assert u.lang is 'en'
+    assert not u.verified_email
+    assert len(u.verification_code) == 50
 
 def test_init_noargs():
     from src.models.user import User
@@ -97,4 +99,18 @@ def test_purge():
     u.purge()
     v = User.query.filter_by(name='test2').first()
     assert v is None
+
+# verify email
+def verify_email():
+    u = User.query.filter_by(name='testy').first()
+    assert u.verify_email(u.verification_code)
+    assert u.verified_email
+    assert len(u.verification_code) == 0
+
+def verify_email_error():
+    u = User.query.filter_by(name='test1').first()
+    assert not u.verify_email("BADCODE!")
+    assert not u.verified_email
+
+
 

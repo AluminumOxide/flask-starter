@@ -54,20 +54,27 @@ class Account:
 
     def check_errors(self, values):
         """Checks multiple values and constructs an exception if necessary"""
-        error = { 'fields':{}, 'context':values } #TODO: store error messages w/ fields
+        error = { 'fields':{}, 'context':values }
         for field in values:
             c = self.check(field, values[field])
             if not c == True:
                 error['fields'][field] = c
-                #error['fields'].append(field)
         if not error['fields']:
             return None
         return WebException('Invalid value(s)', None, error)
+
+    def verify_email(self, user_id, value):
+        """Verifies a user's email"""
+        u = User.query.get(user_id)
+        if not u:
+            raise WebException('User does not exist')
+        return u.verify_email(value)
+
+
+
 
     def recover(self, field):
         """Recovers a user account"""
         return "RECOVER"+field
 
-    def verify(self, field, value):
-        """Verifies a field"""
-        return "VERIFY"+field
+
