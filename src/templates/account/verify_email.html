@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>Verify Account Email</h1>
+<h1>{{ _("title-verify-account-email") }}</h1>
 {% endblock %}
 
 {% block content %}
 
-Please verify your email to continue.
+{{ _("account-email-verify-to-continue") }}
 
 <form method="post" action="{{ url_for('account.verify_email', user_id=user_id) }}">
-	<label for="code">Validation Code</label>
+	<label for="code">{{ _("label-user-validation-code") }}</label>
 	<input name="code" type="text"></input>
-	<input type="submit" value="Validate Email"/>
+	<input type="submit" value="{{ _("button-validate-email") }}"/>
 </form>
 
-Need a resend?
+{{ _("account-email-verify-need-resend") }}
 
 <form method="post" action="{{ url_for('account.verify_email', user_id=user_id) }}">
 	<input type="hidden" name="resend" value="True"/>
-	<input type="submit" value="Resend Email Validation Code"/>
+	<input type="submit" value="{{ _("button-resend-email-validation-code") }}"/>
 </form>
 
 

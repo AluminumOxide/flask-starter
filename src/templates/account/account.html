@@ -1,54 +1,54 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>Account Management</h1>
+<h1>{{ _("title-account-management") }}</h1>
 {% endblock %}
 
 {% block content %}
 
 {% if error %}
-<span>Please fix the error and resubmit</span>
+<span>{{ _("error-account-fix-and-resubmit") }}</span>
 {% endif %}
 
 <form method="post">
 
-	<label for="name">Name</label>
+	<label for="name">{{ _("label-user-name") }}</label>
 	<input name="name" type="text" value="{{ error.context.name if error.context else user.name }}"></input>
 	{% if error and 'name' in error['fields'] %}
-	<span>Invalid name</span>
+	<span>{{ _("error-user-invalid-name") }}</span>
 	{% endif %}
 
-	<label for="email">Email</label>
+	<label for="email">{{ _("label-user-email") }}</label>
 	<input name="email" type="email" value="{{ error.context.email if error.context else user.email }}"></input>
 	{% if error and 'email' in error['fields'] %}
-	<span>Invalid email</span>
+	<span>{{ _("error-user-invalid-email") }}</span>
 	{% endif %}
 
-	<label for="password">Password</label>
+	<label for="password">{{ _("label-user-password") }}</label>
 	<input name="password" type="password"></input>
 	{% if error and 'password' in error['fields'] %}
-	<span>Invalid password</span>
+	<span>{{ _("error-user-invalid-password") }}</span>
 	{% endif %}
 
-	<label for="lang">Default Language</label>
+	<label for="lang">{{ _("label-user-lang") }}</label>
 	<input name="lang" type="text" value="{{ error.context.lang if error.context else user.lang }}"></input>
 	{% if error and 'lang' in error['fields'] %}
-	<span>Unsupported language</span>
+	<span>{{ _("error-user-invalid-lang") }}</span>
 	{% endif %}
 
-	<input type="submit" value="Update Account"/>
+	<input type="submit" value="{{ _("button-update-account") }}"/>
 </form>
 
-<h2>Delete Account</h2>
+<h2>{{ _("title-delete-account") }}</h2>
 <form action="{{ url_for('account.delete_account', user_id=user.id) }}" method="post">
-	<input type="checkbox" required> I understand that I will need to recover my account to log in again. I understand that this will not delete all my account data.
-	<input type="submit" value="Delete Account"/>
+	<input type="checkbox" required> {{ _("disclaimer-delete-account")}}
+	<input type="submit" value="{{ _("button-delete-account") }}"/>
 </form>
 
-<h2>Purge Account</h2>
+<h2>{{ _("title-purge-account") }}</h2>
 <form action="{{ url_for('account.purge_account', user_id=user.id) }}" method="post">
-	<input type="checkbox" required> I understand that this will permanently delete my account and all of its data. I understand that another person may sign up with my old account name.
-	<input type="submit" value="Purge Account"/>
+	<input type="checkbox" required> {{ _("disclaimer-purge-account") }}
+	<input type="submit" value="{{ _("button-purge-account") }}"/>
 </form>
 
 {% endblock %}

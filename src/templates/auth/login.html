@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
-Login Page
+{{ _("title-login") }}
 {% endblock %}
 
 {% block content %}
-Username: <input type='text' name='username'></input>
-Password: <input type='password' name='password'></input>
-<input type='submit'>Login</input>
+<form method="post">
+	<label for="name">{{ _("label-user-name") }}</label>
+	<input type='text' name='name'></input>
+
+	<label for="password">{{ _("label-user-password") }}</label>
+	<input type='password' name='password'></input>
+
+	<input type='submit'>{{ _("button-login") }}</input>
+</form>
 {% endblock %}

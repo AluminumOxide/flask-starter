@@ -1,5 +1,6 @@
 from src.models.user import User
 from src.webexception import WebException
+from flask_babel import _
 
 class Account:
 
@@ -16,7 +17,7 @@ class Account:
         """Updates a user account"""
         u = User.query.get(user_id)
         if not u:
-            raise WebException('User does not exist')
+            raise WebException(_('error.user-does-not-exist'))
         changes = {}
         if name and u.name != name:
             changes['name'] = name
@@ -36,7 +37,7 @@ class Account:
         """Deletes a user account"""
         u = User.query.get(user_id)
         if not u:
-            raise WebException('User does not exist')
+            raise WebException(_('error.user-does-not-exist'))
         u.delete()
         return 
 
@@ -44,7 +45,7 @@ class Account:
         """Purges a user account"""
         u = User.query.get(user_id)
         if not u:
-            raise WebException('User does not exist')
+            raise WebException(_('error.user-does-not-exist'))
         u.purge()
         return 
 
@@ -61,13 +62,13 @@ class Account:
                 error['fields'][field] = c
         if not error['fields']:
             return None
-        return WebException('Invalid value(s)', None, error)
+        return WebException(_('error.invalid-values'), None, error)
 
     def verify_email(self, user_id, value):
         """Verifies a user's email"""
         u = User.query.get(user_id)
         if not u:
-            raise WebException('User does not exist')
+            raise WebException(_('error.user-does-not-exist'))
         return u.verify_email(value)
 
 

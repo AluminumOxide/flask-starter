@@ -1,0 +1,228 @@
+# English translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-06-30 22:55-0700\n"
+"PO-Revision-Date: 2018-06-30 20:39-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: controllers/account/__init__.py:97 controllers/account/account.py:20
+#: controllers/account/account.py:40 controllers/account/account.py:48
+#: controllers/account/account.py:71
+msgid "error.user-does-not-exist"
+msgstr "Sorry! We can't find that user."
+
+#: controllers/account/__init__.py:172
+msgid "error.invalid-email-verification-code"
+msgstr "Sorry! That email verification code doesn't match our records."
+
+#: controllers/account/account.py:65
+msgid "error.invalid-values"
+msgstr "Invalid value(s)"
+
+#: models/user.py:44
+msgid "error.user-name-min-len"
+msgstr "Name must be at least %(l)d characters long."
+
+#: models/user.py:45
+msgid "error.user-name-max-len"
+msgstr "Name must be at most %(l)d characters long."
+
+#: models/user.py:46
+msgid "error.user-name-alphanumeric"
+msgstr "Name contains non-alphanumeric characters."
+
+#: models/user.py:48
+msgid "error.user-name-not-unique"
+msgstr "Name is not unique."
+
+#: models/user.py:53
+msgid "error.user-email-min-len"
+msgstr "Email must be at least %(l)d characters long."
+
+#: models/user.py:54
+msgid "error.user-email-max-len"
+msgstr "Email must be at most %(l)d characters long."
+
+#: models/user.py:55
+msgid "error.user-email-missing-at"
+msgstr "Email must contain a '@'."
+
+#: models/user.py:56
+msgid "error.user-email-missing-period"
+msgstr "Email must contain a '.'."
+
+#: models/user.py:58
+msgid "error.user-email-not-unique"
+msgstr "Email is not unqiue."
+
+#: models/user.py:63
+msgid "error.user-password-min-len"
+msgstr "Password must be at least %(l)d characters long."
+
+#: models/user.py:64
+msgid "error.user-password-max-len"
+msgstr "Password must be at most %(l)d characters long."
+
+#: models/user.py:70
+msgid "error.user-lang-min-len"
+msgstr "Language must be at least %(l)d characters long."
+
+#: models/user.py:71
+msgid "error.user-lang-max-len"
+msgstr "Language must be at most %(l)d characters long."
+
+#: templates/index.html:1
+msgid "button-sign-up"
+msgstr "Sign Up!"
+
+#: templates/account/account.html:4
+msgid "title-account-management"
+msgstr "Account Management"
+
+#: templates/account/account.html:10 templates/account/create.html:10
+msgid "error-account-fix-and-resubmit"
+msgstr "Please fix the following errors and resubmit."
+
+#: templates/account/account.html:15 templates/account/create.html:15
+#: templates/auth/login.html:9
+msgid "label-user-name"
+msgstr "Name"
+
+#: templates/account/account.html:18 templates/account/create.html:19
+msgid "error-user-invalid-name"
+msgstr "Invalid Name"
+
+#: templates/account/account.html:21 templates/account/create.html:25
+msgid "label-user-email"
+msgstr "Email"
+
+#: templates/account/account.html:24 templates/account/create.html:29
+msgid "error-user-invalid-email"
+msgstr "Invalid Email"
+
+#: templates/account/account.html:27 templates/account/create.html:35
+#: templates/auth/login.html:12
+msgid "label-user-password"
+msgstr "Password"
+
+#: templates/account/account.html:30 templates/account/create.html:39
+msgid "error-user-invalid-password"
+msgstr "Invalid Password"
+
+#: templates/account/account.html:33 templates/account/create.html:45
+msgid "label-user-lang"
+msgstr "Language"
+
+#: templates/account/account.html:36 templates/account/create.html:49
+msgid "error-user-invalid-lang"
+msgstr "Invalid Language"
+
+#: templates/account/account.html:39
+msgid "button-update-account"
+msgstr "Update Account!"
+
+#: templates/account/account.html:42
+msgid "title-delete-account"
+msgstr "Delete Account"
+
+#: templates/account/account.html:44
+msgid "disclaimer-delete-account"
+msgstr ""
+"I understand that this will delete my account, but not all data "
+"associated with the account, and I will be able to recover the account."
+
+#: templates/account/account.html:45
+msgid "button-delete-account"
+msgstr "Delete Account!"
+
+#: templates/account/account.html:48 templates/account/purge.html:4
+msgid "title-purge-account"
+msgstr "Purge Account"
+
+#: templates/account/account.html:50
+msgid "disclaimer-purge-account"
+msgstr ""
+"I understand that this will delete my account, and all my account data, "
+"and I will not be able to recover the account."
+
+#: templates/account/account.html:51
+msgid "button-purge-account"
+msgstr "Purge Account!"
+
+#: templates/account/create.html:4
+msgid "title-create-account"
+msgstr "Create Account"
+
+#: templates/account/create.html:55
+msgid "button-create-account"
+msgstr "Create Account!"
+
+#: templates/account/purge.html:8
+msgid "success-account-purged"
+msgstr "Your account has been successfully purged."
+
+#: templates/account/recover_deleted.html:4
+msgid "title-recover-deleted-account"
+msgstr "Recover Deleted Account"
+
+#: templates/account/recover_name.html:4
+msgid "title-recover-user-name"
+msgstr "Recover Lost Name"
+
+#: templates/account/recover_password.html:4
+msgid "title-recover-password"
+msgstr "Recover Lost Password"
+
+#: templates/account/verify_email.html:4
+msgid "title-verify-account-email"
+msgstr "Verify Email"
+
+#: templates/account/verify_email.html:9
+msgid "account-email-verify-to-continue"
+msgstr "Please verify your account to continue."
+
+#: templates/account/verify_email.html:12
+msgid "label-user-validation-code"
+msgstr "Validation Code"
+
+#: templates/account/verify_email.html:14
+msgid "button-validate-email"
+msgstr "Validate Email!"
+
+#: templates/account/verify_email.html:17
+msgid "account-email-verify-need-resend"
+msgstr "Need a resend?"
+
+#: templates/account/verify_email.html:21
+msgid "button-resend-email-validation-code"
+msgstr "Resend Validation Code!"
+
+#: templates/auth/login.html:4
+msgid "title-login"
+msgstr "Login"
+
+#: templates/auth/login.html:15
+msgid "button-login"
+msgstr "Login!"
+
+#: templates/auth/logout.html:4
+msgid "title-logout"
+msgstr "Logout"
+
+#: templates/auth/logout.html:8
+msgid "success-user-logout"
+msgstr "You have successfully been logged out."
+

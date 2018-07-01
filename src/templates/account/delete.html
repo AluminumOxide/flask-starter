@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-Delete Account
+{{ _("title-delete-account") }}
 {% endblock %}
 
 {% block content %}
-Your account has been successfully deleted. Mistake? Recover your account <a href="{{ url_for('account.recover_deleted') }}">here</a>.
+{{ _("success-account-deleted", recover=url_for('account.recover_deleted') }}</a>.
 {% endblock %}

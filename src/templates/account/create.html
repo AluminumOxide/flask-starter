@@ -1,57 +1,57 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>Create Account</h1>
+<h1>{{ _("title-create-account") }}</h1>
 {% endblock %}
 
 {% block content %}
 
 {% if error %}
-<span>Please fix the error and resubmit</span>
+<span>{{ _("error-account-fix-and-resubmit") }}</span>
 {% endif %}
 
 <form method="post">
 
-	<label for="name">Name</label>
+	<label for="name">{{ _("label-user-name") }}</label>
 	<input name="name" type="text" value="{{ error.context.name if error.context }}" required></input>
 	{% if error and 'name' in error['fields'] %}
 	{% if error['fields']['name'] == False %}
-	<span>Invalid name</span>
+	<span>{{ _("error-user-invalid-name") }}</span>
 	{% else %}
 	<span>{{ error['fields']['name']  }}</span>
 	{% endif %}
 	{% endif %}
 
-	<label for="email">Email</label>
+	<label for="email">{{ _("label-user-email") }}</label>
 	<input name="email" type="email" value="{{ error.context.email if error.context }}" required></input>
 	{% if error and 'email' in error['fields'] %}
 	{% if error['fields']['email'] == False %}
-	<span>Invalid email</span>
+	<span>{{ _("error-user-invalid-email") }}</span>
 	{% else %}
 	<span>{{ error['fields']['email']  }}</span>
 	{% endif %}
 	{% endif %}
 
-	<label for="password">Password</label>
+	<label for="password">{{ _("label-user-password") }}</label>
 	<input name="password" type="password" value="{{ error.context.password if error.context }}" required></input>
 	{% if error and 'password' in error['fields'] %}
 	{% if error['fields']['password'] == False %}
-	<span>Invalid password</span>
+	<span>{{ _("error-user-invalid-password") }}</span>
 	{% else %}
 	<span>{{ error['fields']['password']  }}</span>
 	{% endif %}
 	{% endif %}
 
-	<label for="lang">Default Language</label>
+	<label for="lang">{{ _("label-user-lang") }}</label>
 	<input name="lang" type="text" value="{{ error.context.lang if error.context }}" required></input>
 	{% if error and 'lang' in error['fields'] %}
 	{% if error['fields']['lang'] == False %}
-	<span>Unsupported language</span>
+	<span>{{ _("error-user-invalid-lang") }}</span>
 	{% else %}
 	<span>{{ error['fields']['lang']  }}</span>
 	{% endif %}
 	{% endif %}
 
-	<input type="submit" value="Create Account"/>
+	<input type="submit" value="{{ _("button-create-account") }}"/>
 </form>
 {% endblock %}

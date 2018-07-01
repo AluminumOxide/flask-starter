@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, jsonif
 from .account import Account
 from src.models.user import User
 from src.webexception import WebException
+from flask_babel import _
 
 # Routes
 
@@ -93,7 +94,7 @@ def account_get(user_id, error=None):
     """Displays account information"""
     u = User.query.get(user_id)
     if not u:
-        raise WebException('User does not exist')
+        raise WebException(_('error.user-does-not-exist'))
     elif u.deleted:
         return recover_deleted_get()
     elif u.verified_email:
@@ -165,10 +166,10 @@ def verify_email_post(user_id):
     resend = request.form.get('resend')
     if resend == "True":
         u = User.query.get(user_id)
-        print("SEND EMAIL TO %s VERIFICATION CODE %s" % (u.id, u.verification_code))
+        print("SEND EMAIL TO %s VERIFICATION CODE %s" % (u.id, u.verification_code)) #TODO!
     if Account().verify_email(user_id, request.form.get('code')):
         return account_get(user_id)
-    return verify_email_get(user_id, 'Invalid email verification code')
+    return verify_email_get(user_id, _('error.invalid-email-verification-code'))
 
 
 
