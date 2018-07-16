@@ -1,4 +1,7 @@
 Config = {
+        "all": {
+            "default_locale":"en"
+        },
         "test": {
             "environment":"test",
             "SQLALCHEMY_DATABASE_URI": "sqlite:////tmp/test.db",

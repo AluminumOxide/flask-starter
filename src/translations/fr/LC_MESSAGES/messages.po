@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-30 22:55-0700\n"
+"POT-Creation-Date: 2018-07-01 13:51-0700\n"
 "PO-Revision-Date: 2018-06-30 20:39-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -32,55 +32,59 @@ msgstr "Pardon! Ce code de vérification ne correspond pas à nos dossiers."
 msgid "error.invalid-values"
 msgstr "Valeur(s) incorrect(s)"
 
-#: models/user.py:44
+#: models/user.py:45
 msgid "error.user-name-min-len"
 msgstr "Le nom doit contenir au moins %(l)d caractères."
 
-#: models/user.py:45
+#: models/user.py:46
 msgid "error.user-name-max-len"
 msgstr "Le nom doit contenir au plus %(l)d caractères."
 
-#: models/user.py:46
+#: models/user.py:47
 msgid "error.user-name-alphanumeric"
 msgstr "Le nom contient des caractères non alphanumériques."
 
-#: models/user.py:48
+#: models/user.py:49
 msgid "error.user-name-not-unique"
 msgstr "Le nom n'est pas unique."
 
-#: models/user.py:53
+#: models/user.py:54
 msgid "error.user-email-min-len"
 msgstr "Le courriel doit contenir au moins %(l)d caractères."
 
-#: models/user.py:54
+#: models/user.py:55
 msgid "error.user-email-max-len"
 msgstr "Le courriel doit contenir au plus %(l)d caractères."
 
-#: models/user.py:55
+#: models/user.py:56
 msgid "error.user-email-missing-at"
 msgstr "Le courriel doit contenir un '@'."
 
-#: models/user.py:56
+#: models/user.py:57
 msgid "error.user-email-missing-period"
 msgstr "Le courriel doit contenir un '.'."
 
-#: models/user.py:58
+#: models/user.py:59
 msgid "error.user-email-not-unique"
 msgstr "Le courriel n'est pas unique."
 
-#: models/user.py:63
+#: models/user.py:64
 msgid "error.user-password-min-len"
 msgstr "Le mot de passe doit contenir au moins %(l)d caractères."
 
-#: models/user.py:64
+#: models/user.py:65
 msgid "error.user-password-max-len"
 msgstr "Le mot de passe doit contenir au plus %(l)d caractères."
 
 #: models/user.py:70
+msgid "error.user-lang-not-supported"
+msgstr "Pardon! Nous ne soutenons pas cette langue."
+
+#: models/user.py:71
 msgid "error.user-lang-min-len"
 msgstr "La langue doit contenir au moins %(l)d caractères."
 
-#: models/user.py:71
+#: models/user.py:72
 msgid "error.user-lang-max-len"
 msgstr "La langue doit contenir au plus %(l)d caractères."
 
@@ -140,7 +144,10 @@ msgstr "Supprimer le Compte"
 
 #: templates/account/account.html:44
 msgid "disclaimer-delete-account"
-msgstr "Je comprends que cela va supprimer mon compte, mais pas toutes les données associées au compte, et je serai en mesure de récupérer le compte."
+msgstr ""
+"Je comprends que cela va supprimer mon compte, mais pas toutes les "
+"données associées au compte, et je serai en mesure de récupérer le "
+"compte."
 
 #: templates/account/account.html:45
 msgid "button-delete-account"
@@ -152,7 +159,9 @@ msgstr "Purger le Compte"
 
 #: templates/account/account.html:50
 msgid "disclaimer-purge-account"
-msgstr "Je comprends que cela va purger mon compte, et toutes mes données de compte, et je ne serai pas en mesure de récupérer le compte."
+msgstr ""
+"Je comprends que cela va purger mon compte, et toutes mes données de "
+"compte, et je ne serai pas en mesure de récupérer le compte."
 
 #: templates/account/account.html:51
 msgid "button-purge-account"

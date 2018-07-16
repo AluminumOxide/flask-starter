@@ -1,11 +1,58 @@
 <!doctype html>
-<title></title>
-<link rel="stylesheet" href="">
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
+	<script>
+		function updateLang(lang) {
+			$.ajax({ 
+				url: window.location, 
+				headers: { 'Accept-Language': lang },
+				success: function(d){
+					document.open();
+					document.write(d);
+					document.close();
+				}
+			});
+		}
+		function readCookie() {
+			cookie = {};
+			$.map(document.cookie.split(';'), function(val, i) {  
+				vals = val.split('=');
+				cookie[vals[0]] = vals[1];
+			});
+			return cookie	
+		}
+		cookie = readCookie();
+		if ('lang' in cookie && cookie.lang != "{{ current_locale }}") {
+			updateLang(cookie.lang);
+		}
+		$(document).ready(function(){
+			$.get("{{ url_for('get_i18n') }}", function(langs) {
+				$.each(langs, function(i,lang) {
+					opt = { value:lang, text:lang }
+					if(lang == "{{ current_locale }}") {
+						opt['selected'] = true
+					}
+					$("#i18n-selector").append($('<option>',opt));
+				});
+			})
+			$("#i18n-selector").change(function(){
+				lang = $("#i18n-selector").val();
+				document.cookie = "lang="+lang;
+				updateLang(lang);
+			});
+		});
+	</script>
+</head>
+<body>
 
 <div class="heading">
 {% block header %}{% endblock %}
+<select id="i18n-selector"></select>
 </div>
 
 <div class="content">
 {% block content %}{% endblock %}
 </div>
+</body>

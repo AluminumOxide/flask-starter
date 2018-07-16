@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-30 22:55-0700\n"
+"POT-Creation-Date: 2018-07-01 13:51-0700\n"
 "PO-Revision-Date: 2018-06-30 20:39-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -32,55 +32,59 @@ msgstr "Sorry! That email verification code doesn't match our records."
 msgid "error.invalid-values"
 msgstr "Invalid value(s)"
 
-#: models/user.py:44
+#: models/user.py:45
 msgid "error.user-name-min-len"
 msgstr "Name must be at least %(l)d characters long."
 
-#: models/user.py:45
+#: models/user.py:46
 msgid "error.user-name-max-len"
 msgstr "Name must be at most %(l)d characters long."
 
-#: models/user.py:46
+#: models/user.py:47
 msgid "error.user-name-alphanumeric"
 msgstr "Name contains non-alphanumeric characters."
 
-#: models/user.py:48
+#: models/user.py:49
 msgid "error.user-name-not-unique"
 msgstr "Name is not unique."
 
-#: models/user.py:53
+#: models/user.py:54
 msgid "error.user-email-min-len"
 msgstr "Email must be at least %(l)d characters long."
 
-#: models/user.py:54
+#: models/user.py:55
 msgid "error.user-email-max-len"
 msgstr "Email must be at most %(l)d characters long."
 
-#: models/user.py:55
+#: models/user.py:56
 msgid "error.user-email-missing-at"
 msgstr "Email must contain a '@'."
 
-#: models/user.py:56
+#: models/user.py:57
 msgid "error.user-email-missing-period"
 msgstr "Email must contain a '.'."
 
-#: models/user.py:58
+#: models/user.py:59
 msgid "error.user-email-not-unique"
 msgstr "Email is not unqiue."
 
-#: models/user.py:63
+#: models/user.py:64
 msgid "error.user-password-min-len"
 msgstr "Password must be at least %(l)d characters long."
 
-#: models/user.py:64
+#: models/user.py:65
 msgid "error.user-password-max-len"
 msgstr "Password must be at most %(l)d characters long."
 
 #: models/user.py:70
+msgid "error.user-lang-not-supported"
+msgstr "Sorry! We don't support that language yet."
+
+#: models/user.py:71
 msgid "error.user-lang-min-len"
 msgstr "Language must be at least %(l)d characters long."
 
-#: models/user.py:71
+#: models/user.py:72
 msgid "error.user-lang-max-len"
 msgstr "Language must be at most %(l)d characters long."
 

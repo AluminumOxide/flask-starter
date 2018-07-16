@@ -4,6 +4,7 @@ from passlib.context import CryptContext
 import datetime
 import random, string
 import re
+from src.i18n import list_locales
 from flask_babel import _
 
 db = get_db()
@@ -66,7 +67,7 @@ class User(sqla.Model):
 
     @validates('lang')
     def validate_lang(self, key, lang):
-        #TODO: Check i18n
+        assert lang in list_locales(), _("error.user-lang-not-supported")
         assert len(lang) >= self.__lang_len_min, _("error.user-lang-min-len", l=self.__lang_len_min)
         assert len(lang) <= self.__lang_len_max, _("error.user-lang-max-len", l=self.__lang_len_max)
         return lang
